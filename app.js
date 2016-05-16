@@ -29,11 +29,11 @@ client.config('general:navdata_options', navdata_options);
 client.config('video:video_channel', 1);
 client.config('detect:detect_type', 12);
 client.config('control:outdoor', false);
-client.config('control:flight_without_shell', true);
+client.config('control:flight_without_shell', false);
 client.config('control:altitude_min', 800);
 client.config('control:altitude_max', 1000);
 client.config('control:euler_angle_max', 0.30);
-client.config('control:control_vz_max', 500);
+client.config('control:control_vz_max', 700);
 
 // Add a ctrl object to the repl. You can use the controller
 // from there. E.g.

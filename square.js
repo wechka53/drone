@@ -1,5 +1,5 @@
 var df = require('dateformat')
-    , autonomy = require('../')
+    , autonomy = require('ardrone-autonomy')
     , arDrone = require('ar-drone')
     , arDroneConstants = require('ar-drone/lib/constants')
     , mission  = autonomy.createMission()
@@ -34,30 +34,31 @@ process.on('SIGINT', function() {
 
 // Connect and configure the drone
 mission.client().config('general:navdata_demo', true);
+mission.client().config('general:video_enable', false);
+mission.client().config('general:vision_enable', false);
 mission.client().config('general:navdata_options', navdata_options);
 mission.client().config('video:video_channel', 1);
 mission.client().config('detect:detect_type', 12);
-mission.client().config('control:altitude_min', 400);
-mission.client().config('control:altitude_max', 1000);
 mission.client().config('control:outdoor', false);
-mission.client().config('control:flight_without_shell', true);
+mission.client().config('control:flight_without_shell', false);
+mission.client().config('control:altitude_min', 1500);
+mission.client().config('control:altitude_max', 1500);
+mission.client().config('control:euler_angle_max', 0.30);
+mission.client().config('control:control_vz_max', 200);
 
 // Log mission for debugging purposes
 mission.log("mission-" + df(new Date(), "yyyy-mm-dd_hh-MM-ss") + ".log");
 
 // Plan mission
-mission.takeoff()
+mission
+    .takeoff()
     .zero()
-    .altitude(0.6)
     .forward(0.7)
-    .cw(90)
-    .forward(0.7)
-    .cw(90)
-    .forward(0.7)
-    .cw(90)
-    .forward(0.7)
-    .cw(90)
-    .land();
+    .right(0.7)
+    .left(0.7)
+    .backward(0.6)
+    .wait(5)
+    .land()
 
 // Execute mission
 mission.run(function (err, result) {
