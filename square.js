@@ -41,7 +41,7 @@ mission.client().config('video:video_channel', 1);
 mission.client().config('detect:detect_type', 12);
 mission.client().config('control:outdoor', false);
 mission.client().config('control:flight_without_shell', false);
-mission.client().config('control:altitude_min', 1500);
+mission.client().config('control:altitude_min', 200);
 mission.client().config('control:altitude_max', 1500);
 mission.client().config('control:euler_angle_max', 0.30);
 mission.client().config('control:control_vz_max', 200);
@@ -51,13 +51,13 @@ mission.log("mission-" + df(new Date(), "yyyy-mm-dd_hh-MM-ss") + ".log");
 
 // Plan mission
 mission
-    .takeoff()
     .zero()
-    .forward(0.7)
-    .right(0.7)
-    .left(0.7)
-    .backward(0.6)
-    .wait(5)
+	.takeoff()    
+    .hover(1000)
+	.forward(1)
+    .right(1)
+    .backward(1)
+    .left(1)
     .land()
 
 // Execute mission
